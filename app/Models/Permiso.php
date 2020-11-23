@@ -30,10 +30,12 @@ class Permiso extends Model{
         self::PERMISO_VER_ARTICULO => true,
         self::PERMISO_CODIGO_CREAR_ARTICULO => true,
         self::PERMISO_EDITAR_ARTICULO => true,
+        self::PERMISO_GLOBAL_AGREGAR_EMPRESA => true,
     ];
     const PERMISO_VER_ARTICULO = 'ver_articulo';
     const PERMISO_CODIGO_CREAR_ARTICULO = 'crear_articulo';
     const PERMISO_EDITAR_ARTICULO = 'editar_articulo';
+    const PERMISO_GLOBAL_AGREGAR_EMPRESA = 'global_agregar_empresa';
 
 
     public static function constructorCrear():self{

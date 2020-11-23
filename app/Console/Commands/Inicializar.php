@@ -24,6 +24,7 @@ class Inicializar extends Command{
 
 
     public function handle(){
+        Artisan::call('migrate:fresh');
         Artisan::call('migrate:refresh');
         Artisan::call('migrate');
         Artisan::call('passport:install');
@@ -39,8 +40,16 @@ class Inicializar extends Command{
             ->constructorCrearEmail('javierovico@gmail.com')
             ->constructorCrearPassword('adm1n')
             ->constructorGuardar();
+        $admin = User::constructorCrear()
+            ->constructorCrearNombre('Luis')
+            ->constructorCrearApellido('Martinez')
+            ->constructorCrearEmail('luis@tupasyrape.com')
+            ->constructorCrearPassword('lu1s')
+            ->constructorGuardar();
         $rolAdmin = Rol::findByCode(Rol::ROL_CODIGO_ADMIN);
         $admin->agregarPermiso($empresa,$rolAdmin);
+        $rolAdminGeneral = Rol::findByCode(Rol::ROL_CODIGO_ADMIN_GENERAL);
+        $admin->agregarPermisoGeneral($rolAdminGeneral);
         return 0;
     }
 }

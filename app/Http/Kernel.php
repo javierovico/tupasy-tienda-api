@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\EmpresaMiddleware;
+use App\Http\Middleware\PermisoGlobalMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -64,5 +65,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'empresa.permiso' => EmpresaMiddleware::class,
+        'permiso.global' => PermisoGlobalMiddleware::class,
     ];
 }

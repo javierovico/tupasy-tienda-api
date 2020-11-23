@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Archivo;
 use App\Models\Articulo;
 use App\Models\Empresa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArticuloController extends Controller{
 
@@ -23,21 +25,29 @@ class ArticuloController extends Controller{
     }
 
     public function create(Request $request, Empresa $empresa){
-        return $empresa;
+        return $this->update($request,$empresa,Articulo::constructorCrear()->constructorCrearEmpresa($empresa));
     }
 
     public function update(Request $request, Empresa $empresa, Articulo $articulo){
         $validatedData = $request->validate([
-            'photo' => 'mimes:jpeg|dimensions:min_width=100,min_height=100,max_width=500,max_height=500',
+            'photo' => 'image|dimensions:min_width=100,min_height=100,max_width=500,max_height=500',
+            'nombre' => '',
+            'descripcion' => '',
+            'precio' => ''
         ]);
         if($articulo->empresa_id != $empresa->id){
             return response(['message' => 'No permitido, empresa ajena'],401);
         }else{
             if($photo = $request->file('photo')){
-
-                $archivo = $articulo->miniatura;
+                $archivo = Archivo::crearAleatorio('jpg');
+                Storage::disk('s3')->put($archivo->path,$photo->get());
+                $articulo->constructorCrearMiniatura($archivo);
             }
-            return $request->all();
+            $articulo->constructorCrearNombre($request->get('nombre',''));
+            $articulo->constructorDescripcion( $request->get('descripcion',''));
+            $articulo->constructorCrearPrecio($request->get('precio',0));
+            $articulo->constructorGuardar();
+            return $articulo;
         }
     }
 }

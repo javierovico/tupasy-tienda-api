@@ -20,8 +20,12 @@ class Rol extends Model{
     use EagerLoadPivotTrait;
 
     public const ROL_CODIGO_ADMIN = 'admin';
+    public const ROL_CODIGO_ADMIN_GENERAL = 'admin_general';
 
     public const ROLES_ARRAY = [
+        self::ROL_CODIGO_ADMIN_GENERAL=>[
+            Permiso::PERMISO_GLOBAL_AGREGAR_EMPRESA => true,
+        ],
         self::ROL_CODIGO_ADMIN=>[
             Permiso::PERMISO_CODIGO_CREAR_PRODUCTO => true,
             Permiso::PERMISO_CODIGO_BORRAR_PRODUCTO => true,

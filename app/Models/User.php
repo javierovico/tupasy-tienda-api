@@ -65,6 +65,10 @@ class User extends Authenticatable{
             ]);
     }
 
+    public function rolesGenerales(){
+        return $this->belongsToMany(Rol::class,'user_rol');
+    }
+
     public function empresas(){
         return $this->belongsToMany(Empresa::class,'user_empresa_rol');
     }
@@ -127,13 +131,26 @@ class User extends Authenticatable{
         $this->roles()->attach($rol,['empresa_id' => $empresa->id]);
     }
 
-    public function comprobarPermisoEmpresa(Permiso $permiso, Empresa $empresa){
+    public function agregarPermisoGeneral(Rol $rol){
+        $this->rolesGenerales()->attach($rol);
+    }
+
+    public function comprobarPermisoEmpresa(Permiso $permiso, $empresa){
+        $empresaId = ($empresa instanceof Empresa)?$empresa->id:$empresa;
         return null !== $this->roles()
-            ->wherePivot('empresa_id',$empresa->id)
+            ->wherePivot('empresa_id',$empresaId)
             ->whereHas('permisos',function(Builder $q) use ($permiso) {
                 $q->where('permisos.id',$permiso->id);
             })
             ->first();
     }
 
+
+    public function comprobarPermisoGlobal(Permiso $permiso){
+        return null !== $this->rolesGenerales()
+                ->whereHas('permisos',function(Builder $q) use ($permiso) {
+                    $q->where('permisos.id',$permiso->id);
+                })
+                ->first();
+    }
 }

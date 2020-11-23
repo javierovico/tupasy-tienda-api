@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed created_at
  * @property mixed updated_at
  * @property Archivo miniatura
+ * @property string descripcion
  */
 class Articulo extends Model{
     use HasFactory;
@@ -75,6 +76,11 @@ class Articulo extends Model{
 
     public function constructorCrearMiniatura(Archivo $archivoMiniatura) : self{
         $this->miniatura()->associate($archivoMiniatura);
+        return $this;
+    }
+
+    public function constructorDescripcion($descripcion): self{
+        $this->descripcion = $descripcion;
         return $this;
     }
 
