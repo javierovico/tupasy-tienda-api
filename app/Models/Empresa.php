@@ -60,4 +60,9 @@ class Empresa extends Model
         return $this;
     }
 
+    public function constructorCrearTelefono($telefono): self{
+        $this->telefono = $telefono;
+        return $this;
+    }
+
 }

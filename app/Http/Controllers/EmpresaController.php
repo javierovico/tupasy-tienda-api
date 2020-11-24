@@ -24,11 +24,13 @@ class EmpresaController extends Controller{
     public function create(Request $request){
         $request->validate([
             'nombre' => 'required',
+            'telefono' => 'required',
         ]);
         /** @var User $admin */
         $admin = $request->user();
         $empresa = Empresa::constructorCrear()
             ->constructorCrearNombre($request->get('nombre'))
+            ->constructorCrearTelefono($request->get('telefono'))
             ->constructorGuardar()
         ;
         $rolAdmin = Rol::findByCode(Rol::ROL_CODIGO_ADMIN); //luego ver un rol basico TODO
