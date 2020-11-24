@@ -11,7 +11,13 @@ use Illuminate\Support\Facades\Storage;
 class ArticuloController extends Controller{
 
     public function listar(Request $request){
+        $request->validate([
+            'nombre' => ''
+        ]);
         $articulo = Articulo::query()->with('miniatura');
+        if($nombre = $request->get('nombre')){
+            $articulo->where('nombre','like','%'.$nombre.'%');
+        }
         return paginate($articulo,$request);
     }
 
