@@ -14,7 +14,7 @@ class ArticuloController extends Controller{
         $request->validate([
             'nombre' => ''
         ]);
-        $articulo = Articulo::query()->with('miniatura');
+        $articulo = Articulo::query()->with(['miniatura','empresa']);
         if($nombre = $request->get('nombre')){
             $articulo->where('nombre','like','%'.$nombre.'%');
         }
