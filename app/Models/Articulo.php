@@ -21,6 +21,11 @@ use Illuminate\Database\Eloquent\Model;
 class Articulo extends Model{
     use HasFactory;
 
+    protected $appends = ['urlWhatsapp'];
+
+    public function getUrlWhatsappAttribute(){
+        return 'https://wa.me/595985118466?text=Estoy interesado en este producto: '.'http://tienda.tupasyrape.com?id='.$this->id;
+    }
 
     public function empresa(){
         return $this->belongsTo(Empresa::class);

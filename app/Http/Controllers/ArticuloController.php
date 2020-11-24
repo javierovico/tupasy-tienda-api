@@ -12,11 +12,15 @@ class ArticuloController extends Controller{
 
     public function listar(Request $request){
         $request->validate([
-            'nombre' => ''
+            'nombre' => '',
+            'id' => ''
         ]);
         $articulo = Articulo::query()->with(['miniatura','empresa']);
         if($nombre = $request->get('nombre')){
             $articulo->where('nombre','like','%'.$nombre.'%');
+        }
+        if($id = $request->get('id')){
+            $articulo->where('id',$id);
         }
         return paginate($articulo,$request);
     }
