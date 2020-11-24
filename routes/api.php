@@ -31,6 +31,13 @@ Route::prefix('auth')->group(function(){
     });
 });
 
+/**
+ * Zona de acceso libre para lectura
+ */
+Route::prefix('articulo')->group(function(){
+    Route::get('',[ArticuloController::class,'listar']);
+});
+
 Route::group(['middleware' => ['auth:api']],function (){
     Route::prefix('empresa')->group(function(){
         Route::get('',[EmpresaController::class,'index']);

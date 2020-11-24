@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class ArticuloController extends Controller{
 
+    public function listar(Request $request){
+        $articulo = Articulo::query()->with('miniatura');
+        return paginate($articulo,$request);
+    }
+
     public function index(Request $request, $empresa_id){
         $empresa = Empresa::find($empresa_id);
         $query = $empresa->articulos()->with('miniatura');
