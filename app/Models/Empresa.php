@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed logo_id
  * @property mixed created_at
  * @property mixed updated_at
+ * @property string telefono
  * @method static self find($empresaID)
  * @method static self first()
  */

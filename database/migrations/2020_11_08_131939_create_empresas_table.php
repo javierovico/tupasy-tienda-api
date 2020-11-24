@@ -18,6 +18,7 @@ class CreateEmpresasTable extends Migration
             $table->string('nombre',200);
             $table->unsignedBigInteger('miniatura_id')->nullable();     //referencia a archivo
             $table->unsignedBigInteger('logo_id')->nullable();          //referencia a archivo
+            $table->string('telefono',200)->nullable();
             $table->timestamps();
         });
     }

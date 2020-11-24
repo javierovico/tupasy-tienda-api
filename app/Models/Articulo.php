@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed updated_at
  * @property Archivo miniatura
  * @property string descripcion
+ * @property Empresa empresa
  */
 class Articulo extends Model{
     use HasFactory;
@@ -24,7 +25,7 @@ class Articulo extends Model{
     protected $appends = ['urlWhatsapp'];
 
     public function getUrlWhatsappAttribute(){
-        return 'https://wa.me/595985118466?text=Estoy interesado en este producto: '.'http://tienda.tupasyrape.com?id='.$this->id;
+        return 'https://wa.me/'.$this->empresa->telefono.'?text=Estoy interesado en este producto: '.'http://tienda.tupasyrape.com?id='.$this->id;
     }
 
     public function empresa(){
