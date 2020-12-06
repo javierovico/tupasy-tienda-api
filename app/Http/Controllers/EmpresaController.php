@@ -16,6 +16,16 @@ class EmpresaController extends Controller{
         return paginate($query,$request);
     }
 
+    public function indexPublic(Request $request){
+        $query = Empresa::query()->orderBy('nombre');
+        return paginate($query,$request);
+    }
+
+    public function showPublic(Request $request, Empresa $empresa){
+        /** @var User $user */
+        return ['data'=>$empresa];
+    }
+
     public function show(Request $request, Empresa $empresa){
         /** @var User $user */
         return ['data'=>$empresa];

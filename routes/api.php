@@ -38,10 +38,12 @@ Route::prefix('articulo')->group(function(){
     Route::get('',[ArticuloController::class,'listar']);
 });
 
-Route::prefix('empresa')->group(function(){
-    Route::get('',[EmpresaController::class,'index']);
-    Route::prefix('{empresa}')->group(function(){
-        Route::get('',[EmpresaController::class,'show']);
+Route::prefix('public')->group(function(){
+    Route::prefix('empresa')->group(function(){
+        Route::get('',[EmpresaController::class,'indexPublic']);
+        Route::prefix('{empresa}')->group(function(){
+            Route::get('',[EmpresaController::class,'showPublic']);
+        });
     });
 });
 

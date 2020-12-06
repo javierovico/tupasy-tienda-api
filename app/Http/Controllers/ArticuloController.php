@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Archivo;
 use App\Models\Articulo;
 use App\Models\Empresa;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,7 +14,8 @@ class ArticuloController extends Controller{
     public function listar(Request $request){
         $request->validate([
             'nombre' => '',
-            'id' => ''
+            'id' => '',
+            'empresa_id' => '',
         ]);
         $articulo = Articulo::query()->with(['miniatura','empresa']);
         if($nombre = $request->get('nombre')){
@@ -21,6 +23,11 @@ class ArticuloController extends Controller{
         }
         if($id = $request->get('id')){
             $articulo->where('id',$id);
+        }
+        if($empresa_id = $request->get('empresa_id')){
+            $articulo->whereHas('empresa',function(Builder $q) use ($empresa_id) {
+                $q->whereId($empresa_id);
+            });
         }
         $articulo->orderBy('nombre');
         return paginate($articulo,$request);
