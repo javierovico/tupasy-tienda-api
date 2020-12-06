@@ -47,11 +47,11 @@ Route::prefix('empresa')->group(function(){
 
 Route::group(['middleware' => ['auth:api']],function (){
     Route::prefix('empresa')->group(function(){
-        Route::get('',[EmpresaController::class,'index']);
+//        Route::get('',[EmpresaController::class,'index']);
         Route::post('',[EmpresaController::class,'create'])->middleware('permiso.global:'.Permiso::PERMISO_GLOBAL_AGREGAR_EMPRESA);
         Route::prefix('{empresa}')->group(function(){
             Route::prefix('articulo')->group(function (){
-                Route::get('',[ArticuloController::class,'index'])->middleware('empresa.permiso:'. Permiso::PERMISO_CODIGO_VER_ARTICULOS);
+//                Route::get('',[ArticuloController::class,'index'])->middleware('empresa.permiso:'. Permiso::PERMISO_CODIGO_VER_ARTICULOS);
                 Route::post('',[ArticuloController::class,'create'])->middleware('empresa.permiso:'. Permiso::PERMISO_CODIGO_CREAR_ARTICULO);
                 Route::prefix('{articulo}')->group(function(){
                     Route::get('',[ArticuloController::class,'show'])->middleware('empresa.permiso:'.Permiso::PERMISO_VER_ARTICULO);
