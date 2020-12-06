@@ -38,6 +38,13 @@ Route::prefix('articulo')->group(function(){
     Route::get('',[ArticuloController::class,'listar']);
 });
 
+Route::prefix('empresa')->group(function(){
+    Route::get('',[EmpresaController::class,'index']);
+    Route::prefix('{empresa}')->group(function(){
+        Route::get('',[EmpresaController::class,'show']);
+    });
+});
+
 Route::group(['middleware' => ['auth:api']],function (){
     Route::prefix('empresa')->group(function(){
         Route::get('',[EmpresaController::class,'index']);

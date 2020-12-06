@@ -22,6 +22,7 @@ class ArticuloController extends Controller{
         if($id = $request->get('id')){
             $articulo->where('id',$id);
         }
+        $articulo->orderBy('nombre');
         return paginate($articulo,$request);
     }
 
